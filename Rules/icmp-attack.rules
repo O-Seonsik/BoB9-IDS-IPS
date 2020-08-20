@@ -5,5 +5,5 @@ alert icmp any any -> $HOME_NET any (msg:"Ping of Death Attack!!!"; content:"|58
 #icmp flooding
 alert icmp any any -> $HOME_NET any (msg:"ICMP Flooding!!!"; threshold:type both, track by_src, count 20, seconds 5; sid:100003; rev:1;)
 #land attack
-alert ip any any -> $HOME_NET any (msg: "Land Attack Detect"; sameip; sid:100004;)
+alert icmp any any -> $HOME_NET any (msg: "Land Attack Detect"; sameip; sid:100004;)
 
