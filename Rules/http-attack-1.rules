@@ -1,5 +1,5 @@
 #XSS
-drop tcp any any -> $HOME_NET 80 (msg:"XSS Detection"; content:"|25 33 43|script>"; nocase; sid:1000007)
+drop tcp any any -> $HOME_NET 80 (msg:"XSS Detection"; content:"|25 33 43|script>"; nocase; sid:1000007;)
 
 drop tcp any any -> $HOME_NET 80 (msg:"XSS Detection"; flow:to_server,established; uricontent:"</script>"; nocase; sid:1000008; rev:1;)
 
