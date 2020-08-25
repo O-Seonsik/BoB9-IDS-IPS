@@ -8,4 +8,4 @@ drop icmp any any -> $HOME_NET any (msg:"Ping of Death Attack!! DROPED!!"; conte
 drop icmp any any -> $HOME_NET any (msg:"ICMP Flooding!! DROPED!!"; threshold:type both, track by_src, count 20, seconds 5; sid:1000003; rev:1;)
 #land attack
 #alert icmp any any -> $HOME_NET any (msg: "Land Attack Detect"; sameip; sid:1000004;)
-drop icmp any any -> $HOME_NET any (msg:"Land Attack Detect: sameip; sid:1000004;)
+drop icmp any any -> $HOME_NET any (msg:"Land Attack Detect"; sameip; sid:1000004;)
