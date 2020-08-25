@@ -5,7 +5,7 @@ drop tcp any any -> $HOME_NET any (msg: "TCP SYN Flooding Detection"; flags: S; 
 drop tcp any any -> $HOME_NET any (msg:"NULL Flooding Detection"; flags:0; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000002;)
 
 # ACK FLODDING ATTACK
-drop tcp any any -> $HOME_NET any (msg:"ACK Flooding Detection"; flags:A; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000003;)
+drop tcp any any -> $HOME_NET any (msg:"ACK Flooding Detection"; flags:A; threshold:type threshold, track by_src, count 10000, seconds 1; sid:1000003;)
 
 # FIN FLODDING ATTACK
 drop tcp any any -> $HOME_NET any (msg:"FIN Flooding Detection"; flags:F; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000004;)
