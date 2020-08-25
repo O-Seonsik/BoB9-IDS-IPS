@@ -1,34 +1,34 @@
 # SYN FLOODING ATTACK
 drop tcp any any -> $HOME_NET any (msg: "TCP SYN Flooding Detection"; flags: S; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000001;)
 
-# XMAS SCAN
-drop tcp any any -> $HOME_NET any (msg:"Xmas Scan Detection";flags:FPU;sid:1000002;)
-
-# NULL SCAN
-drop tcp any any -> $HOME_NET any (msg:"Null Scan Detection";flags:0;sid:1000003;)
-
-# FIN SCAN
-drop tcp any any -> $HOME_NET any (msg:"Fin Scan Detection";flags:F;sid:1000004;)
-
-# SYN SCAN
-drop tcp any any -> $HOME_NET any (msg:"Syn Scan Detection"; flags:S; threshold:type both, track by_dst, count 100, seconds 1; sid:1000005;)
-
 # NULL FLODDING ATTACK
-drop tcp any any -> $HOME_NET any (msg:"NULL Flooding Detection"; flags:0; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000006;)
+drop tcp any any -> $HOME_NET any (msg:"NULL Flooding Detection"; flags:0; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000002;)
 
 # ACK FLODDING ATTACK
-drop tcp any any -> $HOME_NET any (msg:"ACK Flooding Detection"; flags:A; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000007;)
+drop tcp any any -> $HOME_NET any (msg:"ACK Flooding Detection"; flags:A; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000003;)
 
 # FIN FLODDING ATTACK
-drop tcp any any -> $HOME_NET any (msg:"FIN Flooding Detection"; flags:F; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000008;)
+drop tcp any any -> $HOME_NET any (msg:"FIN Flooding Detection"; flags:F; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000004;)
 
 # PUSH FLODDING ATTACK
-drop tcp any any -> $HOME_NET any (msg:"PUSH Flooding Detection"; flags:P; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000009;)
+drop tcp any any -> $HOME_NET any (msg:"PUSH Flooding Detection"; flags:P; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000005;)
 
 # URG FLODDING ATTACK
-drop tcp any any -> $HOME_NET any (msg:"URG Flooding Detection"; flags:U; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000010;)
+drop tcp any any -> $HOME_NET any (msg:"URG Flooding Detection"; flags:U; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000006;)
 
 # RESET FLODDING ATTACK
-drop tcp any any -> $HOME_NET any (msg:"RESET Flooding Detection"; flags:R; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000011;)
+drop tcp any any -> $HOME_NET any (msg:"RESET Flooding Detection"; flags:R; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000007;)
+
+# XMAS SCAN
+drop tcp any any -> $HOME_NET any (msg:"Xmas Scan Detection";flags:FPU;sid:1000008;)
+
+# NULL SCAN
+drop tcp any any -> $HOME_NET any (msg:"Null Scan Detection";flags:0;sid:1000009;)
+
+# FIN SCAN
+drop tcp any any -> $HOME_NET any (msg:"Fin Scan Detection";flags:F;sid:10000010;)
+
+# SYN SCAN
+drop tcp any any -> $HOME_NET any (msg:"Syn Scan Detection"; flags:S; threshold:type both, track by_dst, count 100, seconds 1; sid:10000011;)
 
 
