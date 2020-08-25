@@ -3,4 +3,4 @@ drop udp any any -> $HOME_NET 53 (msg:"DNS query flooding"; content:"www"; nocas
 # UDP port scan
 drop icmp $HOME_NET any -> any any ( msg:"udp scan"; itype:3; icode:3; threshold:type both, track by_dst, count 100, seconds 1; sid:3000002;)
 #NTP Reflection
-#drop udp $HOME_NET 123 -> any any (msg:"ntp"; content:"|2a|"; "threshold:type both, track by_dst, count 100, seconds 1; sid:3000003;)
+drop udp $HOME_NET 123 -> any any (msg:"ntp"; content:"|2a|"; threshold:type both, track by_dst, count 100, seconds 1; sid:3000003;)
