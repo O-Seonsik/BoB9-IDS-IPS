@@ -2,8 +2,10 @@
 #alert icmp any any -> $HOME_NET any (msg:"ICMP PING"; sid:1000001;)
 #ping of death
 alert icmp any any -> $HOME_NET any (msg:"Ping of Death Attack!!!"; content:"|5858585858|"; sid:1000002;)
+drop icmp any any -> $HOME_NET any (msg:"Ping of Death Attack!!!"; content:"|5858585858|"; sid:1000003;)
 #icmp flooding
-alert icmp any any -> $HOME_NET any (msg:"ICMP Flooding!!!"; threshold:type both, track by_src, count 20, seconds 5; sid:100003; rev:1;)
+alert icmp any any -> $HOME_NET any (msg:"ICMP Flooding!!!"; threshold:type both, track by_src, count 20, seconds 5; sid:1000004; rev:1;)
+drop icmp any any -> $HOME_NET any (msg:"ICMP Flooding!!!"; threshold:type both, track by_src, count 20, seconds 5; sid:1000005; rev:1;)
 #land attack
-alert icmp any any -> $HOME_NET any (msg: "Land Attack Detect"; sameip; sid:100004;)
-
+alert icmp any any -> $HOME_NET any (msg: "Land Attack Detect"; sameip; sid:1000006;)
+drop icmp any any -> $HOME_NET any (msg: "Land Attack Detect"; sameip; sid:1000007;)
