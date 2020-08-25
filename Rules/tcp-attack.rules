@@ -25,8 +25,10 @@ drop tcp any any -> $HOME_NET any (msg:"FIN Flooding Detection"; flags:F; thresh
 # PUSH FLODDING ATTACK
 drop tcp any any -> $HOME_NET any (msg:"PUSH Flooding Detection"; flags:P; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000009;)
 
-# RESET FLODDING ATTACK
-drop tcp any any -> $HOME_NET any (msg:"RESET Flooding Detection"; flags:R; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000010;)
-
 # URG FLODDING ATTACK
-drop tcp any any -> $HOME_NET any (msg:"URG Flooding Detection"; flags:U; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000011;)
+drop tcp any any -> $HOME_NET any (msg:"URG Flooding Detection"; flags:U; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000010;)
+
+# RESET FLODDING ATTACK
+drop tcp any any -> $HOME_NET any (msg:"RESET Flooding Detection"; flags:R; threshold:type threshold, track by_src, count 20, seconds 1; sid:1000011;)
+
+
