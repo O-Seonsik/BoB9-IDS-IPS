@@ -1,0 +1,5 @@
+#ttp get flooding rule
+drop tcp $EXTERNAL_NET any -> $HOME_NET 80 (msg: "HTTP GET FLOODING"; content: "GET / HTTP/1."; nocase; depth : 20; sid:1000002; threshold:type threshold; count 10; seconds 1;)
+
+#slow http post dos
+drop tcp $EXTERNAL_NET any -> $HOME_NET 80 (msg:"HTTP DoS Slowloris"; flow:to_server,established,no_stream; flags:AP; content:"|54 20 2f|"; offset:2; depth:4; content:!"|0d 0a 0d 0a|"; offset:40;  sid:6200001; rev:2; nocase;)

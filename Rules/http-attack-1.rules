@@ -1,0 +1,18 @@
+#XSS
+drop tcp any any -> $HOME_NET 80 (msg:"XSS Detection"; content:"|25 33 43|script>"; nocase; sid:1000007)
+
+drop tcp any any -> $HOME_NET 80 (msg:"XSS Detection"; flow:to_server,established; uricontent:"</script>"; nocase; sid:1000008; rev:1;)
+
+drop tcp any any -> $HOME_NET 80 (msg:"XSS Detection"; flow:established,to_server; content:"%3c%2fscript%3e"; nocase; http_client_body; sid:1000009; rev:1;)
+
+
+#SQL Injection
+drop tcp any any -> $HOME_NET 80 (msg:"SQL UNION SELECT Detection"; flow:established,to_server; content:"UNION"; nocase; http_uri; content:"SELECT"; nocase; http_uri; pcre:"/UNION.+SELECT/Ui"; sid:1000010; rev:1;)
+
+drop tcp any any -> $HOME_NET 80 (msg:"SQL USER in URI Detection"; flow:established,to_server; content:"SELECT"; nocase; http_uri; content:"USER"; nocase; http_uri; pcre:"/SELECT[^a-z].+USER/Ui"; sid:1000011; rev:1;)
+
+drop tcp any any -> $HOME_NET 80 (msg:"SQL SLEEP Detection"; flow:established,to_server; content:"SELECT"; nocase; http_uri; content:"SLEEP|28|"; nocase; http_uri; pcre:"/\bSELECT.*?\bSLEEP\x28/Ui"; sid:1000012; rev:1;)
+
+drop tcp any any -> $HOME_NET 80 (msg:"SQL INFOMATION SCHEMA Detection"; flow:established,to_server; content:"information_schema"; nocase; http_uri; sid:1000013; rev:1;)
+
+drop tcp any any -> $HOME_NET 80 (msg:"SQL SELECT FROM Detection"; flow:established,to_server; content:"SELECT"; nocase; http_uri; content:"FROM"; nocase; http_uri; pcre:"/SELECT\b.*FROM/Ui"; sid:1000014; rev:1;)

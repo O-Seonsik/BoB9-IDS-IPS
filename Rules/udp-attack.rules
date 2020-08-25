@@ -1,0 +1,8 @@
+# DNS Query Flooding
+drop udp any any -> $HOME_NET 53 (msg:"DNS query flooding"; content:"www"; nocase; threshold:type both, track by_src, count 100, seconds 1; sid:0001;)
+# UDP port scan
+drop icmp $HOME_NET any -> any any ( msg:"udp scan"; itype:3; icode:3;
+threshold:type both, track by_dst, count 100, seconds 1; sid:0001;)
+#NTP Reflection
+drop udp $HOME_NET 123 -> any any (msg:"ntp"; content:"|2a|";
+"threshold:type both, track by_dst, count 100, seconds 1; sid:0001;)
