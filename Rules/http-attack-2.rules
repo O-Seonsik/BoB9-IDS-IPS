@@ -5,4 +5,4 @@ drop tcp $EXTERNAL_NET any -> $HOME_NET 80 (msg: "HTTP GET FLOODING"; content: "
 drop tcp $EXTERNAL_NET any -> $HOME_NET 80 (msg:"HTTP DoS Slowloris"; flow:to_server,established,no_stream; flags:AP; content:"|54 20 2f|"; offset:2; depth:4; content:!"|0d 0a 0d 0a|"; offset:40;  sid:2000002; rev:2; nocase;)
 
 #CC Attack
-drop tcp $EXTERNAL_NET any -> $HOME_NET $HTTP_PORTS (msg:”CC Attack”; content:”Cache-Control|3a 20|no-store, must-revalidate”; nocase; classtype:http; sid:2000003; rev:1;)
+drop tcp $EXTERNAL_NET any -> $HOME_NET $HTTP_PORTS (msg:”CC Attack”; content:”Cache-Control|3a 20|no-store, must-revalidate”; nocase; sid:2000003; rev:1;)
