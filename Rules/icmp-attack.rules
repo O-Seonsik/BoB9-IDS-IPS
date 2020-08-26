@@ -1,11 +1,11 @@
 #ping test
 #alert icmp any any -> $HOME_NET any (msg:"ICMP PING"; sid:4000001;)
 #ping of death
-#alert icmp any any -> $HOME_NET any (msg:"Ping of Death Attack!!!"; content:"|5858585858|"; sid:4000002;) 
+#alert icmp any any -> any any (msg:"Warning Ping of Death Attack!!!"; content:"|5858|"; sid:4000002;)
 drop icmp any any -> $HOME_NET any (msg:"Ping of Death Attack!! DROPED!!"; content:"|585858585858585858|"; sid:4000002;)
 #icmp flooding
-#alert icmp any any -> $HOME_NET any (msg:"ICMP Flooding!!!"; threshold:type both, track by_src, count 20, seconds 5; sid:4000003; rev:1;)
-drop icmp any any -> $HOME_NET any (msg:"ICMP Flooding!! DROPED!!"; threshold:type both, track by_src, count 20, seconds 5; sid:4000003; rev:1;)
+#alert icmp any any -> $HOME_NET any (msg:"Warning ICMP Flooding!!!"; threshold:type both, track by_src, count 3, seconds 1; sid:4000003;)
+drop icmp any any -> $HOME_NET any (msg:"ICMP Flooding!!!"; threshold:type both, track by_src, count 20, seconds 5; sid:4000003;)
 #land attack
-#alert icmp any any -> $HOME_NET any (msg: "Land Attack Detect"; sameip; sid:4000004;)
-drop icmp any any -> $HOME_NET any (msg:"Land Attack Detect"; sameip; sid:4000004;)
+#alert icmp any any -> $HOME_NET any (msg: "Warning Land Attack Detect"; sameip; sid:4000004;)
+drop icmp any any -> $HOME_NET any (msg: "Land Attack Detect"; sameip; threshold:type both, track by_src, count 20, seconds 5; sid:4000004;)
