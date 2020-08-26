@@ -1,8 +1,8 @@
 #ping test
 #alert icmp any any -> $HOME_NET any (msg:"ICMP PING"; sid:4000001;)
 #ping of death
-#alert icmp any any -> any any (msg:"Warning Ping of Death Attack!!!"; content:"|5858|"; sid:4000002;)
-drop icmp any any -> $HOME_NET any (msg:"Ping of Death Attack!! DROPED!!"; content:"|585858585858585858|"; sid:4000002;)
+#alert icmp any any -> $HOME_NET any (msg:"Warning Ping of Death Attack!!!"; dsize:>1000; itype:8; icode:0; detection_filter:track by_src, count 30, seconds 1; sid:4000002; classtype:denial-of-service;)
+drop icmp any any -> $HOME_NET any (msg:"Warning Ping of Death Attack!!!"; dsize:>1000; itype:8; icode:0; detection_filter:track by_src, count 30, seconds 1; sid:4000002; classtype:denial-of-service;)
 #icmp flooding
 #alert icmp any any -> $HOME_NET any (msg:"Warning ICMP Flooding!!!"; threshold:type both, track by_src, count 3, seconds 1; sid:4000003;)
 drop icmp any any -> $HOME_NET any (msg:"ICMP Flooding!!!"; threshold:type both, track by_src, count 20, seconds 5; sid:4000003;)
