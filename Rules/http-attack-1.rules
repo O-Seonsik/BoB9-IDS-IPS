@@ -7,6 +7,13 @@ drop tcp any any -> $HOME_NET 80 (msg:"XSS Detection"; content:"|25 33 43 25 32 
 
 drop tcp any any -> $HOME_NET 80 (msg:"XSS Detection"; content:"%3c%2fscript%3e"; nocase; sid:2000004;)
 
+'''
+content 값에서
+문자열 '<'는 '%3'
+'%3'은 hex값으로 '25 33 43'
+
+nocase 키워드는 content에서 대소문자 구분 X
+'''
 
 #SQL Injection
 drop tcp any any -> $HOME_NET 80 (msg:"SQL UNION SELECT Detection"; flow:established,to_server; content:"UNION"; nocase; http_uri; content:"SELECT"; nocase; http_uri; pcre:"/UNION.+SELECT/Ui"; sid:2000005;)
@@ -18,3 +25,28 @@ drop tcp any any -> $HOME_NET 80 (msg:"SQL SLEEP Detection"; flow:established,to
 drop tcp any any -> $HOME_NET 80 (msg:"SQL INFOMATION SCHEMA Detection"; flow:established,to_server; content:"information_schema"; nocase; http_uri; sid:2000008;)
 
 drop tcp any any -> $HOME_NET 80 (msg:"SQL SELECT FROM Detection"; flow:established,to_server; content:"SELECT"; nocase; http_uri; content:"FROM"; nocase; http_uri; pcre:"/SELECT\b.*FROM/Ui"; sid:1000014;)
+
+'''
+flow:established,to_server 키워드는 tcp로 연결이 된 전송만, 서버로 전송되는 것만
+http_uri안에서 콘텐츠 값 검사
+pcre 는 정규식으로 검사
+nocase 키워드는 대소문자 구분 X
+
+[UNION 어택]
+/UNION.+SELECT/
+모든 문자열 하나(.)중 하나 이상의 문자(+)
+
+[USER 어택]
+/SELECT[^a-z].+USER/
+a-z-로 시작하는(^) 한개 이상의 문자
+
+[SLEEP 어택]
+/\bSELECT.*?\bSLEEP\x28/
+\b\b사이에 있는 것과 동일한 문자(패턴) 그다음 0개 이상의 문자
+다음 슬립 함수 'sleep('를 검사
+x28은 괄호 '('
+
+[SELECT FROM 어택]
+/SELECT.*FROM/
+select from 사이에 0개 이상 문자 포함
+'''
