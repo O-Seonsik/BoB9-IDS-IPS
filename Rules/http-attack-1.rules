@@ -11,6 +11,8 @@ drop tcp any any -> $HOME_NET 80 (msg:"XSS Detection"; content:"%3c%2fscript%3e"
 content 값에서
 문자열 '<'는 '%3'
 '%3'은 hex값으로 '25 33 43'
+문자열 '/<'는 '%3c%2f'
+'%3c%2f'은 hex값으로 '25 33 43 25 32 66'
 
 nocase 키워드는 content에서 대소문자 구분 X
 '''
